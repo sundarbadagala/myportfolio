@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { useContext } from "react";
+import { ThemeProvider } from "styled-components";
+import Navbar from "./components/Navbar";
+import { darkTheme, lightTheme } from "./theme/theme.config";
+import { GlobalStyles } from "./theme/globalStyles";
+import { AppContext } from "./context/contextApi";
 
 function App() {
+  const { theme } = useContext(AppContext);
+  const themeType = theme === "light" ? lightTheme : darkTheme;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ThemeProvider theme={themeType}>
+        <GlobalStyles $isDark={theme === "dark"} />
+        <Navbar />
+      </ThemeProvider>
+    </>
   );
 }
 
